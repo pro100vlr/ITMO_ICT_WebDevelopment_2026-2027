@@ -1,0 +1,1510 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ЛР3. Отчёт — Серверная часть на Django REST Framework - Веб-программирование. Просветова Валерия. K3341</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-django-rest-framework" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Веб-программирование. Просветова Валерия. K3341" class="md-header__button md-logo" aria-label="Веб-программирование. Просветова Валерия. K3341" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Веб-программирование. Просветова Валерия. K3341
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ЛР3. Отчёт — Серверная часть на Django REST Framework
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Веб-программирование. Просветова Валерия. K3341" class="md-nav__button md-logo" aria-label="Веб-программирование. Просветова Валерия. K3341" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Веб-программирование. Просветова Валерия. K3341
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ЛР1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ЛР1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lr1/report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Отчёт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ЛР2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ЛР2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lr2/report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Отчёт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модель данных
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Эндпоинты
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Эндпоинты">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#djoser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Авторизация (Djoser)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CRUD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вложенные объекты и операция
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Аналитика, справка и отчёт
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Примеры запросов
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Примеры запросов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Получение списка газет
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-no1-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Получение определенной(№1) газеты по id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Получение типографий, в которых печатается определенная газета
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Получение адресов, где печатается выбранная газета
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Получение редактора газеты с наибольшим тиражом в типографии
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Получение почтовых отделений, куда поступают газеты дороже заданной цены
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Получение газет, поступающих в почтовые отделения в количестве меньше заданного
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Получение почтовых отделений, куда поступает определенная газета из указанной типографии
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Получение справки об индексе и цене выбранной газеты
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Получение отчёта по типографиям
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="3-django-rest-framework">ЛР3. Отчёт — Серверная часть на Django REST Framework</h1>
+<p><strong>Вариант 6 — «Распределение газет по почтовым отделениям».</strong> </p>
+<h2 id="_1">Модель данных</h2>
+<p><img alt="ER-диаграмма" src="../screenshots/er_diagram.png" /></p>
+<p><code>Newspaper ⇄ PrintingHouse</code> — связь «многие-ко-многим» через промежуточную модель <code>PrintRun</code> (тираж). Каждая поставка <code>Delivery</code> — это часть конкретного тиража, отправленная в одно почтовое отделение. Связи на диаграмме — «один-ко-многим» (черта — сторона «один», «воронья лапка» — сторона «многие»).</p>
+<table>
+<thead>
+<tr>
+<th>Модель</th>
+<th>Поля</th>
+<th>Ограничения</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Newspaper</code> (газета)</td>
+<td><code>title</code>, <code>publication_index</code>, <code>editor_last_name</code>, <code>editor_first_name</code>, <code>editor_patronymic</code>, <code>price</code>; M2M <code>printing_houses</code> через <code>PrintRun</code></td>
+<td>индекс уникален; цена ≥ 0</td>
+</tr>
+<tr>
+<td><code>PrintingHouse</code> (типография)</td>
+<td><code>name</code>, <code>address</code>, <code>is_active</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>PostOffice</code> (почтовое отделение)</td>
+<td><code>number</code>, <code>address</code></td>
+<td>номер уникален</td>
+</tr>
+<tr>
+<td><code>PrintRun</code> (тираж газеты в типографии)</td>
+<td>FK <code>printing_house</code>, FK <code>newspaper</code>, <code>circulation</code></td>
+<td>пара (типография, газета) уникальна; тираж ≥ 1</td>
+</tr>
+<tr>
+<td><code>Delivery</code> (поставка в отделение)</td>
+<td>FK <code>print_run</code>, FK <code>post_office</code>, <code>quantity</code></td>
+<td>пара (тираж, отделение) уникальна; количество ≥ 1</td>
+</tr>
+</tbody>
+</table>
+<p><code>related_name</code> задан у связей: <code>PrintingHouse.print_runs</code>, <code>Newspaper.print_runs</code>, <code>PrintingHouse.newspapers</code>, <code>PrintRun.deliveries</code>, <code>PostOffice.deliveries</code>.</p>
+<hr />
+<h2 id="_2">Эндпоинты</h2>
+<p>Базовый адрес приложения — <code>http://127.0.0.1:8000</code>. Для доступа к эндпоинтам <code>/api/...</code> пользователь должен быть авторизован с помощью токена или сессии браузера. При обращении без авторизации сервер возвращает ответ <strong>401 Unauthorized</strong>. В URL параметр <code>{id}</code> обозначает идентификатор конкретного объекта. Если объекта с указанным <code>id</code> не существует, сервер возвращает <strong>404 Not Found</strong>.</p>
+<h3 id="djoser">Авторизация (Djoser)</h3>
+<table>
+<thead>
+<tr>
+<th>Метод</th>
+<th>URL</th>
+<th>Параметры</th>
+<th>Ответ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/auth/users/</code></td>
+<td>тело: <code>username</code>, <code>password</code></td>
+<td>201 <code>{email, username, id}</code>; 400 — логин занят или слабый пароль</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/auth/token/login/</code></td>
+<td>тело: <code>username</code>, <code>password</code></td>
+<td>200 <code>{auth_token}</code>; 400 — неверные данные</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/auth/token/logout/</code></td>
+<td>заголовок с токеном</td>
+<td>204, токен удалён</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/auth/users/me/</code></td>
+<td>заголовок с токеном</td>
+<td>200 <code>{email, id, username}</code></td>
+</tr>
+<tr>
+<td>GET, POST</td>
+<td><code>/api-auth/login/</code></td>
+<td>форма: <code>username</code>, <code>password</code></td>
+<td>вход в browsable API (сессия)</td>
+</tr>
+<tr>
+<td>GET, POST</td>
+<td><code>/api-auth/logout/</code></td>
+<td>—</td>
+<td>выход из browsable API</td>
+</tr>
+</tbody>
+</table>
+<h3 id="crud">CRUD</h3>
+<p>Для каждой основной сущности предусмотрены URL для работы со списком объектов и с отдельным объектом. Для списка используются <code>GET</code> (получение всех объектов) и <code>POST</code> (создание нового объекта). Для отдельного объекта используются <code>GET</code> (получение по <code>id</code>), <code>PUT</code> (полное редактирование), <code>PATCH</code> (частичное редактирование) и <code>DELETE</code> (удаление).</p>
+<table>
+<thead>
+<tr>
+<th>Метод</th>
+<th>URL</th>
+<th>Параметры (тело запроса)</th>
+<th>Ответ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/newspapers/</code></td>
+<td>—</td>
+<td>200 список газет</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/newspapers/</code></td>
+<td><code>title</code>, <code>publication_index</code> (уникальный), <code>editor_last_name</code>, <code>editor_first_name</code>, <code>editor_patronymic</code> (можно пустым), <code>price</code> (≥ 0)</td>
+<td>201 газета; 400 — индекс занят, цена &lt; 0</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/newspapers/{id}/</code></td>
+<td>—</td>
+<td>200 газета: все поля и <code>printing_houses</code> (id типографий)</td>
+</tr>
+<tr>
+<td>PUT / PATCH</td>
+<td><code>/api/newspapers/{id}/</code></td>
+<td>те же поля (PATCH — любые из них, например только <code>price</code> или <code>publication_index</code>)</td>
+<td>200 газета; 400 — ошибка валидации</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/api/newspapers/{id}/</code></td>
+<td>—</td>
+<td>204; тиражи и поставки газеты удаляются каскадно</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/printing-houses/</code></td>
+<td>—</td>
+<td>200 список типографий</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/printing-houses/</code></td>
+<td><code>name</code>, <code>address</code></td>
+<td>201 типография, <code>is_active: true</code></td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/printing-houses/{id}/</code></td>
+<td>—</td>
+<td>200 <code>{id, name, address, is_active}</code></td>
+</tr>
+<tr>
+<td>PUT / PATCH</td>
+<td><code>/api/printing-houses/{id}/</code></td>
+<td><code>name</code>, <code>address</code> (<code>is_active</code> только для чтения и игнорируется)</td>
+<td>200 типография</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/api/printing-houses/{id}/</code></td>
+<td>—</td>
+<td>204; тиражи и поставки удаляются каскадно</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/post-offices/</code></td>
+<td>—</td>
+<td>200 список отделений</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/post-offices/</code></td>
+<td><code>number</code> (уникальный), <code>address</code></td>
+<td>201 отделение; 400 — номер занят</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/post-offices/{id}/</code></td>
+<td>—</td>
+<td>200 <code>{id, number, address}</code></td>
+</tr>
+<tr>
+<td>PUT / PATCH</td>
+<td><code>/api/post-offices/{id}/</code></td>
+<td><code>number</code>, <code>address</code></td>
+<td>200 отделение</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/api/post-offices/{id}/</code></td>
+<td>—</td>
+<td>204; поставки в отделение удаляются каскадно</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/print-runs/</code></td>
+<td>—</td>
+<td>200 список тиражей</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/print-runs/</code></td>
+<td><code>printing_house</code> (id), <code>newspaper</code> (id), <code>circulation</code> (≥ 1)</td>
+<td>201 тираж; 400 — пара типография + газета уже есть, типография закрыта</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/print-runs/{id}/</code></td>
+<td>—</td>
+<td>200 <code>{id, circulation, printing_house, newspaper}</code></td>
+</tr>
+<tr>
+<td>PUT / PATCH</td>
+<td><code>/api/print-runs/{id}/</code></td>
+<td>те же поля</td>
+<td>200 тираж; 400 — тираж меньше уже распределённого, перенос в закрытую типографию</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/api/print-runs/{id}/</code></td>
+<td>—</td>
+<td>204; поставки тиража удаляются каскадно</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/deliveries/</code></td>
+<td>—</td>
+<td>200 список поставок</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/deliveries/</code></td>
+<td><code>print_run</code> (id), <code>post_office</code> (id), <code>quantity</code> (≥ 1)</td>
+<td>201 поставка; 400 — сумма поставок превысит тираж, пара тираж + отделение уже есть</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/deliveries/{id}/</code></td>
+<td>—</td>
+<td>200 <code>{id, quantity, print_run, post_office}</code></td>
+</tr>
+<tr>
+<td>PUT / PATCH</td>
+<td><code>/api/deliveries/{id}/</code></td>
+<td>те же поля</td>
+<td>200 поставка; 400 — превышен тираж</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/api/deliveries/{id}/</code></td>
+<td>—</td>
+<td>204</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">Вложенные объекты и операция</h3>
+<table>
+<thead>
+<tr>
+<th>Метод</th>
+<th>URL</th>
+<th>Параметры</th>
+<th>Ответ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/printing-houses/{id}/print-runs/</code></td>
+<td><code>{id}</code> типографии</td>
+<td>200 <code>[{id, circulation, newspaper: {id, title, publication_index, price}}]</code> — один-ко-многим</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/post-offices/{id}/deliveries/</code></td>
+<td><code>{id}</code> отделения</td>
+<td>200 <code>[{id, quantity, printing_house: {id, name, address}, newspaper: {id, title, publication_index}}]</code> — один-ко-многим</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/newspapers/{id}/printing-houses/</code></td>
+<td><code>{id}</code> газеты</td>
+<td>200 <code>[{printing_house: {id, name, address, is_active}, circulation}]</code> — многие-ко-многим</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/printing-houses/{id}/close/</code></td>
+<td><code>{id}</code> типографии, тело не нужно</td>
+<td>200 <code>{printing_house_id, moves: [{newspaper_id, to_printing_house_id, circulation}]}</code>; 409 — уже закрыта или это последняя работающая</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">Аналитика, справка и отчёт</h3>
+<table>
+<thead>
+<tr>
+<th>Метод</th>
+<th>URL</th>
+<th>Параметры</th>
+<th>Ответ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/analytics/newspapers/{id}/printing-addresses/</code></td>
+<td><code>{id}</code> газеты</td>
+<td>200 <code>[{name, address, printing_house_id}]</code> — адреса типографий, где печатается газета</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/analytics/printing-houses/{id}/top-editor/</code></td>
+<td><code>{id}</code> типографии</td>
+<td>200 <code>{newspaper: {id, title}, circulation, editor_last_name}</code> — газета с самым большим тиражом; 404 — у типографии нет тиражей</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/analytics/post-offices-by-price/</code></td>
+<td><code>price_gt</code> — число, обязательный</td>
+<td>200 <code>[{id, number, address}]</code> — отделения, куда поступает газета дороже <code>price_gt</code>; 400 — параметр не задан или не число</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/analytics/low-deliveries/</code></td>
+<td><code>quantity_lt</code> — целое, обязательный</td>
+<td>200 <code>[{newspaper: {id, title, publication_index}, post_office: {id, number}, total_quantity}]</code> — количество суммируется по всем типографиям; 400 — параметр не задан или не целое</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/analytics/newspapers/{id}/destinations/</code></td>
+<td><code>{id}</code> газеты; <code>address</code> — адрес типографии (точное совпадение), обязательный</td>
+<td>200 <code>[{post_office: {id, number, address}, quantity}]</code>; 400 — нет <code>address</code></td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/analytics/newspapers/{id}/reference/</code></td>
+<td><code>{id}</code> газеты</td>
+<td>200 <code>{id, title, publication_index, price}</code> — справка об индексе и цене</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/reports/printing-houses/</code></td>
+<td>—</td>
+<td>200 <code>[{id, name, address, is_active, total_copies, by_newspaper: [{newspaper, circulation}], shipments: [{post_office, items: [{newspaper, quantity}]}]}]</code> — отчёт по каждой типографии</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">Примеры запросов</h2>
+<p>Ниже приведены примеры запросов к API и получаемых ответов. В примерах используются данные, находящиеся в базе данных проекта.</p>
+<h3 id="1">1. Получение списка газет</h3>
+<p><strong>Запрос:</strong></p>
+<pre><code class="language-http">GET /api/newspapers/
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: 1,
+    &quot;title&quot;: &quot;Вечерний город&quot;,
+    &quot;publication_index&quot;: &quot;П1001&quot;,
+    &quot;editor_last_name&quot;: &quot;Смирнов&quot;,
+    &quot;editor_first_name&quot;: &quot;Алексей&quot;,
+    &quot;editor_patronymic&quot;: &quot;Петрович&quot;,
+    &quot;price&quot;: &quot;25.00&quot;,
+    &quot;printing_houses&quot;: [1, 2]
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;title&quot;: &quot;Городские вести&quot;,
+    &quot;publication_index&quot;: &quot;П1002&quot;,
+    &quot;editor_last_name&quot;: &quot;Кузнецова&quot;,
+    &quot;editor_first_name&quot;: &quot;Ольга&quot;,
+    &quot;editor_patronymic&quot;: &quot;Ивановна&quot;,
+    &quot;price&quot;: &quot;30.50&quot;,
+    &quot;printing_houses&quot;: [1, 3]
+  },
+  {
+    &quot;id&quot;: 3,
+    &quot;title&quot;: &quot;Спорт-экспресс&quot;,
+    &quot;publication_index&quot;: &quot;П1003&quot;,
+    &quot;editor_last_name&quot;: &quot;Орлов&quot;,
+    &quot;editor_first_name&quot;: &quot;Дмитрий&quot;,
+    &quot;editor_patronymic&quot;: &quot;Сергеевич&quot;,
+    &quot;price&quot;: &quot;45.00&quot;,
+    &quot;printing_houses&quot;: [2]
+  },
+  {
+    &quot;id&quot;: 4,
+    &quot;title&quot;: &quot;Наука и жизнь&quot;,
+    &quot;publication_index&quot;: &quot;П1004&quot;,
+    &quot;editor_last_name&quot;: &quot;Волкова&quot;,
+    &quot;editor_first_name&quot;: &quot;Мария&quot;,
+    &quot;editor_patronymic&quot;: &quot;Андреевна&quot;,
+    &quot;price&quot;: &quot;60.00&quot;,
+    &quot;printing_houses&quot;: [3]
+  }
+]
+</code></pre>
+<h3 id="2-no1-id">2. Получение определенной(№1)  газеты по id</h3>
+<p><strong>Запрос:</strong></p>
+<pre><code class="language-http">GET /api/newspapers/1/
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;title&quot;: &quot;Вечерний город&quot;,
+  &quot;publication_index&quot;: &quot;П1001&quot;,
+  &quot;editor_last_name&quot;: &quot;Смирнов&quot;,
+  &quot;editor_first_name&quot;: &quot;Алексей&quot;,
+  &quot;editor_patronymic&quot;: &quot;Петрович&quot;,
+  &quot;price&quot;: &quot;25.00&quot;,
+  &quot;printing_houses&quot;: [1, 2]
+}
+</code></pre>
+<h3 id="3">3. Получение типографий, в которых печатается определенная газета</h3>
+<p>Для газеты «Вечерний город» с <code>id = 1</code>:</p>
+<pre><code class="language-http">GET /api/newspapers/1/printing-houses/
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">[
+  {
+    &quot;printing_house&quot;: {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Типография №1&quot;,
+      &quot;address&quot;: &quot;ул. Садовая, 10&quot;,
+      &quot;is_active&quot;: true
+    },
+    &quot;circulation&quot;: 5000
+  },
+  {
+    &quot;printing_house&quot;: {
+      &quot;id&quot;: 2,
+      &quot;name&quot;: &quot;Типография №2&quot;,
+      &quot;address&quot;: &quot;пр. Победы, 25&quot;,
+      &quot;is_active&quot;: true
+    },
+    &quot;circulation&quot;: 2000
+  }
+]
+</code></pre>
+<h3 id="4">4. Получение адресов, где печатается выбранная газета</h3>
+<p>Для газеты «Вечерний город» с <code>id = 1</code>:</p>
+<pre><code class="language-http">GET /api/analytics/newspapers/1/printing-addresses/
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">[
+  {
+    &quot;name&quot;: &quot;Типография №1&quot;,
+    &quot;address&quot;: &quot;ул. Садовая, 10&quot;,
+    &quot;printing_house_id&quot;: 1
+  },
+  {
+    &quot;name&quot;: &quot;Типография №2&quot;,
+    &quot;address&quot;: &quot;пр. Победы, 25&quot;,
+    &quot;printing_house_id&quot;: 2
+  }
+]
+</code></pre>
+<h3 id="5">5. Получение редактора газеты с наибольшим тиражом в типографии</h3>
+<p>Для типографии с <code>id = 2</code>:</p>
+<pre><code class="language-http">GET /api/analytics/printing-houses/2/top-editor/
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">{
+  &quot;newspaper&quot;: {
+    &quot;id&quot;: 3,
+    &quot;title&quot;: &quot;Спорт-экспресс&quot;
+  },
+  &quot;circulation&quot;: 8000,
+  &quot;editor_last_name&quot;: &quot;Орлов&quot;
+}
+</code></pre>
+<h3 id="6">6. Получение почтовых отделений, куда поступают газеты дороже заданной цены</h3>
+<p>Например, выберем газеты стоимостью больше <code>40</code>:</p>
+<pre><code class="language-http">GET /api/analytics/post-offices-by-price/?price_gt=40
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: 2,
+    &quot;number&quot;: &quot;102&quot;,
+    &quot;address&quot;: &quot;ул. Мира, 12&quot;
+  },
+  {
+    &quot;id&quot;: 3,
+    &quot;number&quot;: &quot;103&quot;,
+    &quot;address&quot;: &quot;пр. Космонавтов, 40&quot;
+  }
+]
+</code></pre>
+<h3 id="7">7. Получение газет, поступающих в почтовые отделения в количестве меньше заданного</h3>
+<p>Например, зададим количество меньше <code>1000</code> экземпляров:</p>
+<pre><code class="language-http">GET /api/analytics/low-deliveries/?quantity_lt=1000
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">[
+  {
+    &quot;newspaper&quot;: {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Вечерний город&quot;,
+      &quot;publication_index&quot;: &quot;П1001&quot;
+    },
+    &quot;post_office&quot;: {
+      &quot;id&quot;: 3,
+      &quot;number&quot;: &quot;103&quot;
+    },
+    &quot;total_quantity&quot;: 500
+  },
+  {
+    &quot;newspaper&quot;: {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Городские вести&quot;,
+      &quot;publication_index&quot;: &quot;П1002&quot;
+    },
+    &quot;post_office&quot;: {
+      &quot;id&quot;: 2,
+      &quot;number&quot;: &quot;102&quot;
+    },
+    &quot;total_quantity&quot;: 500
+  },
+  {
+    &quot;newspaper&quot;: {
+      &quot;id&quot;: 4,
+      &quot;title&quot;: &quot;Наука и жизнь&quot;,
+      &quot;publication_index&quot;: &quot;П1004&quot;
+    },
+    &quot;post_office&quot;: {
+      &quot;id&quot;: 2,
+      &quot;number&quot;: &quot;102&quot;
+    },
+    &quot;total_quantity&quot;: 200
+  },
+  {
+    &quot;newspaper&quot;: {
+      &quot;id&quot;: 4,
+      &quot;title&quot;: &quot;Наука и жизнь&quot;,
+      &quot;publication_index&quot;: &quot;П1004&quot;
+    },
+    &quot;post_office&quot;: {
+      &quot;id&quot;: 3,
+      &quot;number&quot;: &quot;103&quot;
+    },
+    &quot;total_quantity&quot;: 300
+  }
+]
+</code></pre>
+<h3 id="8">8. Получение почтовых отделений, куда поступает определенная газета из указанной типографии</h3>
+<p>Для газеты «Вечерний город» с <code>id = 1</code>, которая печатается по адресу <code>ул. Садовая, 10</code>:</p>
+<pre><code class="language-http">GET /api/analytics/newspapers/1/destinations/?address=ул.%20Садовая,%2010
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">[
+  {
+    &quot;post_office&quot;: {
+      &quot;id&quot;: 1,
+      &quot;number&quot;: &quot;101&quot;,
+      &quot;address&quot;: &quot;ул. Ленина, 5&quot;
+    },
+    &quot;quantity&quot;: 2000
+  },
+  {
+    &quot;post_office&quot;: {
+      &quot;id&quot;: 2,
+      &quot;number&quot;: &quot;102&quot;,
+      &quot;address&quot;: &quot;ул. Мира, 12&quot;
+    },
+    &quot;quantity&quot;: 2500
+  }
+]
+</code></pre>
+<h3 id="9">9. Получение справки об индексе и цене выбранной газеты</h3>
+<p>Для газеты «Вечерний город» с <code>id = 1</code>:</p>
+<pre><code class="language-http">GET /api/analytics/newspapers/1/reference/
+</code></pre>
+<p><strong>Ответ:</strong></p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;title&quot;: &quot;Вечерний город&quot;,
+  &quot;publication_index&quot;: &quot;П1001&quot;,
+  &quot;price&quot;: &quot;25.00&quot;
+}
+</code></pre>
+<h3 id="10">10. Получение отчёта по типографиям</h3>
+<p><strong>Запрос:</strong></p>
+<pre><code class="language-http">GET /api/reports/printing-houses/
+</code></pre>
+<p>Ответ:</p>
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Типография №1&quot;,
+        &quot;address&quot;: &quot;ул. Садовая, 10&quot;,
+        &quot;is_active&quot;: true,
+        &quot;total_copies&quot;: 8000,
+        &quot;by_newspaper&quot;: [
+            {
+                &quot;newspaper&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;title&quot;: &quot;Вечерний город&quot;
+                },
+                &quot;circulation&quot;: 5000
+            },
+            {
+                &quot;newspaper&quot;: {
+                    &quot;id&quot;: 2,
+                    &quot;title&quot;: &quot;Городские вести&quot;
+                },
+                &quot;circulation&quot;: 3000
+            }
+        ],
+        &quot;shipments&quot;: [
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;number&quot;: &quot;101&quot;,
+                    &quot;address&quot;: &quot;ул. Ленина, 5&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 1,
+                            &quot;title&quot;: &quot;Вечерний город&quot;
+                        },
+                        &quot;quantity&quot;: 2000
+                    },
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 2,
+                            &quot;title&quot;: &quot;Городские вести&quot;
+                        },
+                        &quot;quantity&quot;: 1000
+                    }
+                ]
+            },
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 2,
+                    &quot;number&quot;: &quot;102&quot;,
+                    &quot;address&quot;: &quot;ул. Мира, 12&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 1,
+                            &quot;title&quot;: &quot;Вечерний город&quot;
+                        },
+                        &quot;quantity&quot;: 2500
+                    }
+                ]
+            },
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 3,
+                    &quot;number&quot;: &quot;103&quot;,
+                    &quot;address&quot;: &quot;пр. Космонавтов, 40&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 2,
+                            &quot;title&quot;: &quot;Городские вести&quot;
+                        },
+                        &quot;quantity&quot;: 1500
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;name&quot;: &quot;Типография №2&quot;,
+        &quot;address&quot;: &quot;пр. Победы, 25&quot;,
+        &quot;is_active&quot;: true,
+        &quot;total_copies&quot;: 10000,
+        &quot;by_newspaper&quot;: [
+            {
+                &quot;newspaper&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;title&quot;: &quot;Вечерний город&quot;
+                },
+                &quot;circulation&quot;: 2000
+            },
+            {
+                &quot;newspaper&quot;: {
+                    &quot;id&quot;: 3,
+                    &quot;title&quot;: &quot;Спорт-экспресс&quot;
+                },
+                &quot;circulation&quot;: 8000
+            }
+        ],
+        &quot;shipments&quot;: [
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;number&quot;: &quot;101&quot;,
+                    &quot;address&quot;: &quot;ул. Ленина, 5&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 1,
+                            &quot;title&quot;: &quot;Вечерний город&quot;
+                        },
+                        &quot;quantity&quot;: 1000
+                    }
+                ]
+            },
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 2,
+                    &quot;number&quot;: &quot;102&quot;,
+                    &quot;address&quot;: &quot;ул. Мира, 12&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 3,
+                            &quot;title&quot;: &quot;Спорт-экспресс&quot;
+                        },
+                        &quot;quantity&quot;: 4000
+                    }
+                ]
+            },
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 3,
+                    &quot;number&quot;: &quot;103&quot;,
+                    &quot;address&quot;: &quot;пр. Космонавтов, 40&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 1,
+                            &quot;title&quot;: &quot;Вечерний город&quot;
+                        },
+                        &quot;quantity&quot;: 500
+                    },
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 3,
+                            &quot;title&quot;: &quot;Спорт-экспресс&quot;
+                        },
+                        &quot;quantity&quot;: 3000
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;name&quot;: &quot;Типография №3&quot;,
+        &quot;address&quot;: &quot;ул. Заводская, 7&quot;,
+        &quot;is_active&quot;: true,
+        &quot;total_copies&quot;: 2200,
+        &quot;by_newspaper&quot;: [
+            {
+                &quot;newspaper&quot;: {
+                    &quot;id&quot;: 2,
+                    &quot;title&quot;: &quot;Городские вести&quot;
+                },
+                &quot;circulation&quot;: 1500
+            },
+            {
+                &quot;newspaper&quot;: {
+                    &quot;id&quot;: 4,
+                    &quot;title&quot;: &quot;Наука и жизнь&quot;
+                },
+                &quot;circulation&quot;: 700
+            }
+        ],
+        &quot;shipments&quot;: [
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;number&quot;: &quot;101&quot;,
+                    &quot;address&quot;: &quot;ул. Ленина, 5&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 2,
+                            &quot;title&quot;: &quot;Городские вести&quot;
+                        },
+                        &quot;quantity&quot;: 800
+                    }
+                ]
+            },
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 2,
+                    &quot;number&quot;: &quot;102&quot;,
+                    &quot;address&quot;: &quot;ул. Мира, 12&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 2,
+                            &quot;title&quot;: &quot;Городские вести&quot;
+                        },
+                        &quot;quantity&quot;: 500
+                    },
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 4,
+                            &quot;title&quot;: &quot;Наука и жизнь&quot;
+                        },
+                        &quot;quantity&quot;: 200
+                    }
+                ]
+            },
+            {
+                &quot;post_office&quot;: {
+                    &quot;id&quot;: 3,
+                    &quot;number&quot;: &quot;103&quot;,
+                    &quot;address&quot;: &quot;пр. Космонавтов, 40&quot;
+                },
+                &quot;items&quot;: [
+                    {
+                        &quot;newspaper&quot;: {
+                            &quot;id&quot;: 4,
+                            &quot;title&quot;: &quot;Наука и жизнь&quot;
+                        },
+                        &quot;quantity&quot;: 300
+                    }
+                ]
+            }
+        ]
+    }
+]
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
